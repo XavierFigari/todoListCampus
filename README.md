@@ -6,3 +6,11 @@
 - an Nginx web server
 
 This project also demonstrates a GitHub CI/CD flow, and the usage of Docker containers. 
+
+## Images for Dockerfile
+For our project we used only alpine image for start docker container.
+Containers used : 
+- NodeJS
+- Nginx
+- Front
+- PostgreSQL
