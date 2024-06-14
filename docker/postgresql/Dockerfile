@@ -1,15 +1,24 @@
-FROM
-RUN apt-get update -yq \
-    && apt-get install curl gnupg -yq \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install nodejs -yq \
-    && apt-get clean -y
+FROM alpine:3.20
+COPY install_postgres.sh .
+RUN sh -x ./install_postgres.sh
+ENTRYPOINT su-exec postgres pg_ctl start -D /var/lib/postgresql/data && su-exec postgres psql
+#CMD
 
-ADD . /app/
-WORKDIR /app
-RUN npm install
+#ENTRYPOINT su-exec postgres initdb -D /var/lib/postgresql/data
 
-EXPOSE 2368
-VOLUME /app/logs
+# WORKDIR /app
+# COPY
+# ADD . /... ??
+# RUN ...
+# EXPOSE portnumber
 
-CMD npm run start
+
+
+
+#ADD . /app/
+#RUN npm install
+#
+#EXPOSE 2368
+#VOLUME /app/logs
+#
+#CMD npm run start
